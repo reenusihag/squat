@@ -1,0 +1,526 @@
+var xmlhttp = new getXMLObject();	//xmlhttp holds the ajax object
+
+function getXMLObject(){ //XML OBJECT
+    var xmlHttp = false;
+    try{
+	       xmlHttp = new ActiveXObject("Msxml2.XMLHTTP") // For Old Microsoft Browsers
+    }
+	catch(e1){
+		try{
+			xmlHttp = new ActiveXObject("Microsoft.XMLHTTP") // For Microsoft IE 6.0+
+		}
+		catch (e2){
+			xmlHttp = false // No Browser accepts the XMLHTTP Object then false
+		}
+	}
+	if(!xmlHttp && typeof XMLHttpRequest != 'undefined'){
+	          xmlHttp = new XMLHttpRequest(); //For Mozilla, Opera Browsers
+    }
+    return xmlHttp; // Mandatory Statement returning the ajax object created
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function handleServerResponse(){
+	if(xmlhttp.readyState == 4){
+		if(xmlhttp.status == 200){
+            var store = xmlhttp.responseText;
+            //alert(store);
+            display(store);
+        }
+    }
+}
+
+function sendrq(code,input,lang){
+    if(xmlhttp){
+        xmlhttp.open("POST","/compile/",true); //getname will be the servlet name
+        // after create cos /create/ will be the result and this is how it is mapped
+        xmlhttp.onreadystatechange  = handleServerResponse;
+        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xmlhttp.send("code="+encodeURIComponent(code)+"&input="+encodeURIComponent(input)+"&lang="+lang);
+        // posting code, input, lang
+        // encoding for sending special characters
+   }
+}
+
+function compile(){
+
+        if (!navigator.onLine){
+            toastAlert(" You are offline, please check your internet connection. ");
+        } 
+
+
+        document.getElementById("cbtn").disabled = true;
+
+        var code = editor.getValue();
+        if(code == ""){
+            toastAlert(" Nothing to compile !");
+            document.getElementById("cbtn").disabled = false;
+            return;
+        }
+
+        var input = document.getElementById('input').value.trim();
+        if(input.length > 3000){
+            var x = parseInt(input.length) - 3000;
+            toastAlert("Input limit exceeded by " + x +" characters, reduce input upto 3000 characters and try again !");
+            document.getElementById("cbtn").disabled = false;
+            return;
+        }
+
+
+        hidee();
+        hides();
+        scrolld();
+        showl();
+
+        var lang = getlang();
+        sendrq(code,input,lang);
+}
+
+
+
+function display(store){
+
+
+
+    var rep = store.replace(/[+]/g , " ");
+    var j = JSON.parse(rep);
+
+    var code_id     = decodeURIComponent(j.code_id);
+    var exitvalue   = decodeURIComponent(j.exitvalue);
+    var std_err     = decodeURIComponent(j.std_err);
+    var comment     = decodeURIComponent(j.comment);
+    var time        = decodeURIComponent(j.time);
+    var std_out     = decodeURIComponent(j.std_out);
+    if(std_out.length >= 3000)
+        std_out += " ...[output trimmed]"
+
+
+    document.getElementById("tcodeid").innerHTML    = code_id;
+    document.getElementById("tstatus").innerHTML    = comment;
+    document.getElementById("ttime").innerHTML      = time;
+    document.getElementById("texitvalue").innerHTML = exitvalue;
+    document.getElementById("tstdop").innerHTML     = std_out;
+    document.getElementById("tstderr").innerHTML    = std_err;
+
+    if(std_out == ""){
+        document.getElementById("tstdop").innerHTML = "Standard output is empty";
+    }
+    if(document.getElementById('input').value.trim() == ""){
+        document.getElementById("input").placeholder = "Standard input is empty";
+    }
+
+    hidel();
+    shows();
+    if(std_err != ""){
+        showe();            
+    }
+
+    document.getElementById("cbtn").disabled = false;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function handleServerResponse1(){
+    if(xmlhttp.readyState == 4){
+        if(xmlhttp.status == 200){
+            var res = xmlhttp.responseText;
+            document.getElementById("fin").value=res;
+            showm();
+        }
+    }
+}
+
+function sendstr(id, code, lang, status, time, exitvalue, input, stdop, stderr){
+    if(xmlhttp){
+        xmlhttp.open("POST","/store/",true); //getname will be the servlet name
+        // after create cos /create/ will be the result and this is how it is mapped
+        xmlhttp.onreadystatechange  = handleServerResponse1;
+        xmlhttp.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+        xmlhttp.send("id="+encodeURIComponent(id)+
+                    "&code="+encodeURIComponent(code)+
+                    "&lang="+encodeURIComponent(lang)+
+                    "&status="+encodeURIComponent(status)+
+                    "&time="+encodeURIComponent(time)+
+                    "&exitvalue="+encodeURIComponent(exitvalue)+
+                    "&input="+encodeURIComponent(input)+
+                    "&stdop="+encodeURIComponent(stdop)+
+                    "&stderr="+encodeURIComponent(stderr)
+                    );
+        // posting code, input, lang
+        // encoding for sending special characters
+   }
+}
+
+function share(){
+
+   
+    var code = editor.getValue();
+    var id = document.getElementById('tcodeid').innerHTML.trim();
+
+    //to hide link copied div
+     document.getElementById("cpydiv").innerHTML="&nbsp;";
+
+    if(code == ""){
+        toastAlert(" Nothing to Share ! ");
+        document.getElementById("cbtn").disabled = false;
+        return;
+    }
+
+    if(id == ""){
+        toastAlert(" Compile code before sharing ! ");
+        return;
+    }
+
+    var input = document.getElementById('input').value.trim();
+    var lang = getlang();
+
+    var status = document.getElementById('tstatus').innerHTML.trim();
+    var time = document.getElementById('ttime').innerHTML.trim();
+    var exitvalue = document.getElementById('texitvalue').innerHTML.trim();
+    var stdop       = document.getElementById('tstdop').innerHTML.trim();
+    var stderr      = document.getElementById('tstderr').innerHTML.trim();
+
+    //alert(id+ code+ lang+ status+ time+ exitvalue+ input+ stdop+ stderr);
+    sendstr(id, code, lang, status, time, exitvalue, input, stdop, stderr);
+        
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function display_init(code_data){
+
+    if(code_data == " ")
+        return "";
+
+    //alert(code_data);
+
+    var rep1 = code_data.replace(/[+]/g , " ");
+    var rep2 = rep1.replace(/%C3%A2%C2%80%C2%98/g , "%27");
+    var rep = rep2.replace(/%C3%A2%C2%80%C2%99/g , "%27");
+
+//    alert(rep);
+    var j = JSON.parse(rep);
+
+
+    var id          = decodeURIComponent(j.id);
+    var code        = decodeURIComponent(j.code);
+    var lang        = decodeURIComponent(j.lang);
+    var status      = decodeURIComponent(j.status);
+    var time        = decodeURIComponent(j.time);
+    var exitvalue   = decodeURIComponent(j.exitvalue);
+    var input       = decodeURIComponent(j.input);
+    var stderr      = decodeURIComponent(j.stderr);
+    var stdop       = decodeURIComponent(j.stdop);
+    if(stdop.length >= 3000)
+        stdop += " ...[output trimmed]"
+
+
+    document.getElementById("tcodeid").innerHTML    = id;
+    editor.setValue(code);
+    setLang(lang);
+    document.getElementById("tstatus").innerHTML    = status;
+    document.getElementById("ttime").innerHTML      = time;
+    document.getElementById("texitvalue").innerHTML = exitvalue;
+    document.getElementById('input').value           = input;
+    document.getElementById("tstdop").innerHTML     = stdop;
+    document.getElementById("tstderr").innerHTML    = stderr;
+
+    if(stdop == ""){
+        document.getElementById("tstdop").innerHTML = "Standard output is empty";
+    }
+    if(document.getElementById('input').value.trim() == ""){
+        document.getElementById("input").placeholder = "Standard input is empty";
+    }
+
+    document.getElementById("status").style.display='block';
+    if(stderr != ""){
+        document.getElementById("stderr_row").style.display='block';
+    }
+
+    document.getElementById("input-checkbox").checked = true;
+    document.getElementById("inputdiv").style.display = 'block';
+
+    return "0";
+
+}
+
+function copy() {
+
+        var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+        var copyTextarea = document.querySelector('.js-copytextarea');
+        copyTextarea.select();
+        try {
+            var successful = document.execCommand('copy');
+            if(successful){
+                document.getElementById("cpydiv").innerHTML=" Link Copied!";
+            }
+            else{
+                document.getElementById("cpydiv").innerHTML="Copying Unsuccessful, please copy link manually";
+            }
+        } catch (err) {
+            document.getElementById("cpydiv").innerHTML="Oops, unable to copy, please copy link manually";
+        }
+}
+
+function disp_cipbox(cbox){
+    if(cbox.checked == 1){
+        show_cipbox();
+    }
+    if(cbox.checked == 0){
+        hide_cipbox();
+    }
+}
+
+function fullscreen(){
+    editor.setOption("fullScreen", true);
+    document.getElementById("exit_full").style.display = "block";
+
+}
+function exit_fullscreen(){
+    editor.setOption("fullScreen", false);
+    document.getElementById("exit_full").style.display = "none";
+}
+
+
+function download() {
+
+    var contents = editor.getValue();
+
+    var lang = getlang();
+    var name = document.getElementById("tcodeid").innerHTML;
+    if(name == "")  name="code";
+    name = name+"."+lang;
+        
+    var mime_type = "text/plain";
+    var blob = new Blob([contents], {type: mime_type});
+
+    var dlink = document.createElement('a');
+    dlink.download = name;
+    dlink.href = window.URL.createObjectURL(blob);
+    dlink.onclick = function(e) {
+        // revokeObjectURL needs a delay to work properly
+        var that = this;
+        setTimeout(function() {
+            window.URL.revokeObjectURL(that.href);
+        }, 1500);
+    };
+
+    dlink.click();
+    dlink.remove();
+
+    document.getElementById("dbtn").blur();
+}
+
+
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}
+
+
+function setfont(fsize){
+    var cols =     document.getElementsByClassName('CodeMirror');
+    cols[0].style.fontSize =    fsize+"px";
+    createCookie('fsize',fsize,7);
+}
+
+function setheight(hsize){
+    var cols =     document.getElementsByClassName('CodeMirror');
+    cols[0].style.height =    hsize+"px";
+    createCookie('hsize',hsize,7);
+}
+
+
+
+
+function setEditor(){
+
+    if (!navigator.onLine){
+        alert(" You are offline, please check your internet connection. ");
+    }
+
+    var theme = readCookie('theme');
+    var fsize = readCookie('fsize');
+    var hsize = readCookie('hsize');
+    var lang = readCookie('lang');
+
+
+    if (theme) {
+        setTheme(theme);
+        selectTheme();
+    }
+    
+    if (fsize) {
+        setfont(parseInt(fsize));
+        document.getElementById("fsize").value = parseInt(fsize);
+    }
+
+    if (hsize) {
+        setheight(parseInt(hsize));
+        document.getElementById("hsize").value = parseInt(hsize);
+    }
+
+    if (lang && display_init(rex) == "") {
+        setLang(lang);
+        changemode();
+    }
+
+    //alert(theme+" "+fsize+" "+hsize+" "+lang);
+}
+
+
+
+var scrolld, showe, hidee, shows, hides, showl, hidel, showm, showc, hidec;
+var show_cipbox, hide_cipbox;
+$(document).ready(function(){
+    //jQuery function
+    scrolld = function()
+    {
+        $('html,body').animate({
+        scrollTop: $("#scrolltarget").offset().top - 200 },
+        'slow');
+    }
+    hidel = function(){
+        $("#loader").hide();
+    }
+    showl = function(){
+        $("#loader").fadeIn();
+    }
+    hides = function(){
+        $("#status").fadeOut("fast");
+    }
+    shows = function(){
+        $("#status").fadeIn();
+    }
+    hidee = function(){
+        $("#stderr_row").fadeOut("fast");
+    }
+    showe = function(){
+        $("#stderr_row").fadeIn();
+    }
+    showm = function(){
+        $("#linkdetail").modal("toggle");
+    }
+
+    show_cipbox = function(){
+        $("#inputdiv").slideDown();
+    }
+
+    hide_cipbox = function(){
+        $("#inputdiv").slideUp();
+    }
+
+
+})
+
+ $('.dropdown-menu select').click(function(e) {
+        e.stopPropagation();
+    });
+
+
+
+function toastAlert(msg){
+    toastr["warning"](msg);
+}
+
+// to prevent clicking problem
+$('#theme').change(testMessage);
+function testMessage(){
+    selectTheme();
+}
+
+
+var ua = navigator.userAgent.toLowerCase();
+var isAndroid = ua.indexOf("android") > -1; //&& ua.indexOf("mobile");
+if(isAndroid) {
+    alert("Code editor is not mobile friendly. For best experience switch to PC or Laptop device.")
+}
+
+
+window.onload = setEditor;
+

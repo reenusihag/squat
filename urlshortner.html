@@ -1,0 +1,109 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+      <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Coiny|Lobster|Mr+Dafoe|Rammetto+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Monoton" rel="stylesheet">
+    <style>
+
+  h1{
+      text-align: center;
+      font-family: 'Monoton', cursive;
+      /*font-family: 'Coiny', cursive;*/
+    }
+    h2{
+      text-align: center;
+      font-family: 'Lobster', cursive;
+
+    }
+    #url1{
+
+      width:70%;
+    
+      margin-left: 15%
+    }
+    #Custom1{
+        margin-top:7%;
+      width:70%;
+      margin-left: 15%;
+    }
+#nav{
+  height:200px;
+    } 
+ #created
+{
+  display: none;
+  width: 70%;
+  background-color: #f8f9fa;
+  height: 130px;
+  padding: 2px;
+  font-weight: bold;
+}
+#createdurl
+{
+  border: none;
+  background-color: #343a40;
+  color: white;
+  width: 55%;
+  padding: .7%;
+ 
+}
+#p
+{
+  margin-left: 21%;
+  border-radius: 5px;
+  background-color: #28a745;
+  display: block;
+  width: 120px;
+  font-size: 17px;
+  text-align: center;
+} 
+body{
+
+  background:url(comp.jpg) no-repeat center center fixed;
+  background-size:cover;
+}
+  </style>
+
+  </head>
+  <body>
+        <div id=nav class="jumbotron jumbotron-fluid">
+  <div class="container-fluid">
+    <h1 class="display-4">YOURLS</h1>
+    <h2>[YOUR OWN URL SHORTNER]</h2>
+  </div>
+</div>
+<form id="shortUrlCreatorForm">
+  <div id="Custom1" class="input-group mb-5">
+  <input type="text" class="form-control" id="url" name="url" placeholder="Enter URL" aria-describedby="basic-addon2">
+  <div class="input-group-append">
+    <button  class="btn btn-outline-primary"  id="subbtn" type="submit">Short Url</button>
+  </div>
+  </div>
+      <div id="url1" class="input-group mb-3">
+         <div class="input-group-prepend">
+    <span class="input-group-text" >https://yourls1.herokuapp.com/</span>
+  </div>
+  <input type="text" id="key" class="form-control" placeholder="Custom URL"aria-describedby="basic-addon1" name="key">
+</div>
+<p id ="p"></p>
+<center>
+<div id="created">
+  <h2>SUCESS</h2>
+  <span>YOUR URL is :&nbsp;&nbsp;</span>
+  <input type="text" id="createdurl" disabled="disabled">
+</div>
+</center>
+</form>&nbsp;&nbsp;&nbsp;
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="init.js"></script>
+  </body>
+</html>

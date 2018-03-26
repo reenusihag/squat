@@ -1,0 +1,374 @@
+body,html {
+    padding: 0;
+    margin: 0;
+    font-family: 'Source Sans Pro',sans-serif;
+    font-size: 16px;
+    background: #fff;
+    height: 100%;
+}
+
+.a,.a:active,.a:focus,.a:hover {
+    color: #000;
+    font-size: 14px;
+    font-weight: 600
+}
+
+p {
+    text-align: justify;
+    text-justify: inter-word
+}
+
+#image,.poster {
+    vertical-align: middle
+}
+
+#image,.profile {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.poster {
+    max-width: 100%;
+    max-height: 100%;
+    align: center
+}
+
+.oculin {
+    font-family: 'Cookie',cursive;
+    color: #333;
+    font-size: 32px;
+    text-decoration: none
+}
+
+.cent {
+    margin: 0 auto;
+    width: 200px;
+    padding-right: 30px;
+    padding-left: 40px
+}
+
+.navbar {
+    margin: auto;
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-brand {
+    border-bottom: 1px solid #E7E7E7;
+    margin: 0 0 20px;
+    padding: 5px
+}
+
+.navbar-default {
+    background-color: #fff
+}
+
+.navbar-default .navbar-nav>li>a {
+    margin: 10px;
+    color: #000
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #ff5475
+}
+
+@media (max-width:285px) {
+    .logo {
+        width: 175px
+    }
+
+    .optbtn {
+        margin: 0
+    }
+}
+
+@media (min-width:286px) and (max-width:339px) {
+    .logo {
+        width: 200px
+    }
+}
+
+@media (min-width:340px) and (max-width:450px) {
+    .logo {
+        width: 250px
+    }
+}
+
+td,th {
+    font-size: 16px
+}
+
+.table {
+    margin: 0
+}
+
+.hideit {
+    display: none
+}
+
+.row {
+    margin: 0
+}
+
+.white {
+    white-space: pre
+}
+
+.alert {
+    margin: 0
+}
+
+#status {
+    padding: 15px
+}
+
+#tstderr {
+    color: #bd211f
+}
+
+#inputdiv {
+    padding: 15px
+}
+
+.form-control:focus {
+    border-color: #1fa67a;
+    box-shadow: 0 0 4px 1px #1fa67a;
+    border-width: 0
+}
+
+a,a:active,a:focus,a:hover {
+    outline: 0
+}
+
+#cpy,#cpy:active,#cpy:focus,#cpy:hover {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 900;
+    letter-spacing: .99px;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 4px;
+    border-color: #1fa67a;
+    background: #1fa67a;
+    outline: none
+}
+
+.utilbtn,.utilbtn:active,.utilbtn:focus,.utilbtn:hover {
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: .99px;
+    border-width: 3px;
+    border-style: solid;
+    border-radius: 4px;
+    background: #fff;
+    outline: none;
+    width: 100%
+}
+
+#cbtn {
+    color: #1fa67a;
+    border-color: #1fa67a
+}
+
+#sbtn {
+    color: #2196f3;
+    border-color: #2196f3
+}
+
+hr {
+    margin: 0;
+    border-width: 3px;
+    border-style: solid;
+    border-color: #39cccc
+}
+
+.footer-modified {
+    background-color: #181717;
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0px 500px 0px 500px #181717;
+}
+
+.company {
+    color: #e8f5e9;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0
+}
+
+.footer-icons {
+    margin-top: 15px
+}
+
+.footer-icons a,.social-circle li a {
+    display: inline-block;
+    text-align: center;
+    font-size: 20px
+}
+
+.footer-icons a {
+    cursor: pointer;
+    color: #fff;
+    line-height: 35px;
+    margin-right: 3px;
+    margin-bottom: 5px;
+    width: 35px;
+    height: 35px;
+    background-color: #33383b;
+    border-radius: 2px
+}
+
+.CodeMirror {
+    border: 1px solid silver;
+    font-size: 12px;
+    height: 520px
+}
+
+.CodeMirror-empty.CodeMirror-focused {
+    outline: none
+}
+
+.CodeMirror pre.CodeMirror-placeholder {
+    color: #999
+}
+
+.cc-editor-component {
+    border-left: 1px solid silver;
+    border-right: 1px solid silver;
+    border-top: 1px solid silver;
+    background-color: #f7f7f7
+}
+
+#codearea {
+    box-shadow: 0 2px 4px 1px rgba(0,0,0,.3)
+}
+
+.menu {
+    padding-bottom: 8px
+}
+
+.optbtn {
+    height: 34px;
+    float: right;
+    margin: 8px 0 8px 10px
+}
+
+.loader {
+    border: 9px solid #eee;
+    border-radius: 50%;
+    border-top: 9px solid #3cc;
+    width: 60px;
+    height: 60px;
+    -webkit-animation: spin 1s linear infinite;
+    animation: spin 1s linear infinite;
+    margin-left: auto;
+    margin-right: auto
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+#table-wrapper {
+    position: relative
+}
+
+#table-scroll {
+    overflow: auto
+}
+
+#table-wrapper table {
+    width: 100%
+}
+
+#table-wrapper table thead th .text {
+    position: absolute;
+    z-index: 2
+}
+
+ul.social-network {
+    list-style: none;
+    display: inline;
+    margin-left: 0!important;
+    padding: 0
+}
+
+ul.social-network li {
+    display: inline;
+    margin: 0 5px
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3b5998
+}
+
+.social-network a.icoTwitter:hover {
+    background-color: #3cf
+}
+
+.social-network a.icoLinkedin:hover {
+    background-color: #007bb7
+}
+
+.social-network a.icoFacebook:hover i,.social-network a.icoLinkedin:hover i,.social-network a.icoTwitter:hover i {
+    color: #fff
+}
+
+.socialHoverClass,a.socialIcon:hover {
+    color: #44bcdd
+}
+
+.social-circle li a {
+    position: relative;
+    margin: 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: #2e2e2e
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center
+}
+
+.social-circle li a:hover i,.triggeredHover {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    -ms-transition: all .2s;
+    transition: all .2s
+}
+
+.social-circle i {
+    color: #fff;
+    -webkit-transition: all .8s;
+    -moz-transition: all .8s;
+    -o-transition: all .8s;
+    -ms-transition: all .8s;
+    transition: all .8s
+}

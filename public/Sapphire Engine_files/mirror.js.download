@@ -1,0 +1,115 @@
+
+
+var cpptemp = "#include <bits/stdc++.h>\n#include <iostream>\nusing namespace std;\n\nint main()\n{\n\tcout << \"Hello World!\" << endl;\n\treturn 0;\n}";
+var ctemp   = "#include <stdio.h>\n\nint main()\n{\n\tprintf(\"Hello World!\");\n\treturn 0;\n}"
+var rbtemp  = "# Enter your code here. Read input from STDIN. Print output to STDOUT\n\nprint 'Hello World!'"
+var pytemp  = "# Enter your code here. Read input from STDIN. Print output to STDOUT\n\nprint 'Hello World!'"
+
+
+function selectTheme() {
+
+    var input = document.getElementById("theme");
+    var theme = input.options[input.selectedIndex].textContent;
+
+    if(theme == "Light"){
+        editor.setOption("theme", "default");
+    }
+    else if(theme == "Dark"){
+        editor.setOption("theme", "monokai");
+    }
+    else if(theme == "Materialize"){
+        editor.setOption("theme", "material");
+    }
+
+    createCookie('theme',theme,7);
+}
+
+
+function setTheme(theme) {
+
+    if(theme == "Light"){
+        document.getElementById("theme").selectedIndex = "0";
+    }
+    else if(theme == "Dark"){
+        document.getElementById("theme").selectedIndex = "1";
+    }
+    else if(theme == "Materialize"){
+        document.getElementById("theme").selectedIndex = "2";
+    }
+}
+
+
+
+function changemode(){
+    var lang = getlang()
+    var code1 = editor.getValue();
+    var bit=1;
+
+    if(code1 == cpptemp || code1 == ctemp || code1 == pytemp || code1 == rbtemp || code1 == "")
+        bit=0;
+
+    if(lang == "cpp"){
+        editor.setOption("mode", "text/x-c++src");
+        if(bit == 0)
+            editor.setValue(cpptemp);
+    }
+    else if(lang == "c"){
+        editor.setOption("mode", "text/x-csrc");
+        if(bit == 0)
+            editor.setValue(ctemp);
+    }
+    else if(lang == "py"){
+        editor.setOption("mode", {name: "python", version: 3, singleLineStringErrors: false});
+        if(bit == 0)
+            editor.setValue(pytemp)
+    }
+    else if(lang == "rb"){
+        editor.setOption("mode", "text/x-ruby");
+        if(bit == 0)
+            editor.setValue(rbtemp)
+    }
+
+    createCookie('lang',lang,7);
+}
+
+
+
+
+function setLang(lang) {
+    if(lang == "cpp"){
+        document.getElementById("lang").selectedIndex = "0";
+    }
+    else if(lang == "c"){
+        document.getElementById("lang").selectedIndex = "1";
+    }
+    else if(lang == "py"){
+        document.getElementById("lang").selectedIndex = "2";
+    }
+    else if(lang == "rb"){
+        document.getElementById("lang").selectedIndex = "3";
+    }
+}
+
+
+
+// to change language just change here
+
+function getlang(){
+    var lang;
+    var lang_temp = document.getElementById('lang').value.trim();
+
+    if(lang_temp == "C++ (g++ 5.4.0)"){
+        lang = "cpp";
+    }
+    else if(lang_temp == "C (gcc 5.4.0)"){
+        lang = "c";
+    }
+    else if(lang_temp == "Python (python 2.7.14)"){
+        lang = "py";
+    }
+    else if(lang_temp == "Ruby (ruby 2.3.1)"){
+        lang = "rb";
+    }
+    return lang;
+
+}
