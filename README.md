@@ -10,21 +10,17 @@
 ![Home](https://raw.githubusercontent.com/reenusihag/squat/master/squat.jpg) 
 
 
-<br>
 
 ### Database :
 ``` Mongodb ```
 
-<br>
 
 ### for Back-end :
 ``` Node.js ```
 
-<br>
 
 ### for Front-end :
 ``` Bootstrap or CSS ```
 
-<br>
 
 ``` BY: Reenu ```
